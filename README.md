@@ -14,6 +14,7 @@ You can do it following the instructions in this [PrettyStatic blog article](htt
 
 ## Install package
 
+Install package from [PyPI](https://pypi.org/project/notionapimanager/).
 ```shell
 pip install notionapimanager
 ```
