@@ -8,9 +8,37 @@ license = "MIT"
 [tool.poetry.dependencies]
 python = "^3.9"
 pandas = "^1.4.0"
+requests = "^2.27.1"
 
 [tool.poetry.dev-dependencies]
+pytest = "^7.0.1"
+nox = "^2022.1.7"
+safety = "^1.10.3"
+flake8 = "^4.0.1"
+flake8-bandit = "^2.1.2"
+flake8-bugbear = "^22.1.11"
+flake8-import-order = "^0.18.1"
+black = "^22.1.0"
+flake8-black = "^0.2.4"
+pytest-cov = "^3.0.0"
+coverage = "^6.3.1"
+mypy = "^0.931"
+typeguard = "^2.13.3"
+pytest-mock = "^3.7.0"
+requests-mock = "^1.9.3"
+importlib-metadata = "^4.11.1"
+types-requests = "^2.27.10"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.coverage.run]
+branch = true
+source = ["notionapimanager"]
+omit = []
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 100  # Usually 100, but I have time constraints
+exclude_lines = ["raise NotImplementedError"]
