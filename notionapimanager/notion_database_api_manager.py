@@ -9,6 +9,8 @@ from notionapimanager.notion_property_encoder import NotionPropertyDecoder, Noti
 
 
 class NotionDatabaseApiManager:
+    """Class for reading from (and writing to) Notion databases"""
+
     DATABASES_URL = 'https://api.notion.com/v1/databases/'
     CREATE_URL = 'https://api.notion.com/v1/pages'
 
@@ -22,6 +24,8 @@ class NotionDatabaseApiManager:
         self._property_types = None
 
     def connect(self):
+        """Perform preparation operations before communicating with Notion API"""
+
         self._headers = {
             "Authorization": "Bearer " + self.integration_token,
             "Content-Type": "application/json",
@@ -55,6 +59,14 @@ class NotionDatabaseApiManager:
         return pd.Series(properties)
 
     def get_database(self, database_id):
+        """
+        Read Notion database and return a Pandas DataFrame
+
+        :param database_id: id of database you want to retrieve
+        :type database_id: str
+        :return: dataframe of the database
+        :rtype: pd.DataFrame
+        """
         database_query_url = self.DATABASES_URL + database_id + "/query"
         response = requests.post(database_query_url, headers=self._headers)
         data = response.json()
@@ -79,6 +91,15 @@ class NotionDatabaseApiManager:
         }
 
     def create_page(self, database_id, page_properties: List[PropertyValue]):
+        """
+        Add Notion page to database
+
+        :param database_id: id of database you want to add a page to
+        :type database_id: str
+        :return: page property values
+        :rtype: List[:class:`~.notion_property_encoder.PropertyValue`]
+        """
+
         new_page_data = self._create_page_properties(database_id, page_properties)
 
         data = json.dumps(new_page_data)

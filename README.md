@@ -31,7 +31,7 @@ integration_token = "secret_example_integration_token_3147cefa7cd20d4s45677dfasd
 database_id_1 = "cc147cefa7cd20d4841469ddbd4cd893"
 database_id_2 = "cc147cef20d456461469ddbd4das4593"
 
-manager = NotionDatabaseApiManager("secret_SHWYRGpAOK6471doOQ9gPbmEAzzfsdfpznGlPzCFwCW", [database_id_1, database_id_2])
+manager = NotionDatabaseApiManager(integration_token, [database_id_1, database_id_2])
 manager.connect()
 
 # Get database 1
@@ -46,6 +46,3 @@ manager.create_page(
 )
 ```
 
-# How differnt Notion property types match with Pandas DataFrame column types
-
-To be completed
