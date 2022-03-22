@@ -16,7 +16,7 @@ copyright = '2022, Rubén Chuliá Mena'
 author = 'Rubén Chuliá Mena'
 
 release = '0.1'
-version = '0.1.5'
+version = '0.1.6'
 
 
 # -- General configuration
