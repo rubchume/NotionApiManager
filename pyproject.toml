@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "notionapimanager"
-version = "0.1.4"
+version = "0.1.5"
 description = "Python package for consulting, creating and editing Notion databases"
 authors = ["Ruben Chulia Mena <rubchume@gmail.com>"]
 license = "MIT"

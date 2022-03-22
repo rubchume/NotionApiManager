@@ -13,10 +13,3 @@ Welcome to NotionApiManager's documentation!
    usage
    data_types
    api
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
