@@ -103,7 +103,4 @@ class NotionDatabaseApiManager:
         new_page_data = self._create_page_properties(database_id, page_properties)
 
         data = json.dumps(new_page_data)
-        print(new_page_data)
         response = requests.post(self.CREATE_URL, headers=self._headers, data=data)
-
-        print(response.json())
