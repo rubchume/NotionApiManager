@@ -96,8 +96,8 @@ class NotionDatabaseApiManager:
 
         :param database_id: id of database you want to add a page to
         :type database_id: str
-        :return: page property values
-        :rtype: List[:class:`~.notion_property_encoder.PropertyValue`]
+        :param page_properties: property values of new page
+        :type page_properties: List[:class:`~.notion_property_encoder.PropertyValue`]
         """
 
         new_page_data = self._create_page_properties(database_id, page_properties)
