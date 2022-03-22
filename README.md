@@ -6,6 +6,10 @@ It makes it easier to read databases as [Pandas DataFrames](https://pandas.pydat
 
 GitHub [repository](https://github.com/rubchume/NotionApiManager).
 
+[Documentation](https://readthedocs.org/projects/notionapimanager/).
+
+[PyPI](https://pypi.org/project/notionapimanager/).
+
 # Steps
 
 ## Obtain a Notion integration token
