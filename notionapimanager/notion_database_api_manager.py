@@ -1,5 +1,5 @@
-import json
 from itertools import chain
+import json
 from typing import List
 
 import pandas as pd
