@@ -1,3 +1,4 @@
+from itertools import chain
 import json
 from typing import List
 
@@ -68,14 +69,42 @@ class NotionDatabaseApiManager:
         :rtype: pd.DataFrame
         """
         database_query_url = self.DATABASES_URL + database_id + "/query"
-        response = requests.post(database_query_url, headers=self._headers)
-        data = response.json()
+        pages_raw = self._get_all_pages(database_query_url)
         pages = [
             self._get_page_properties(page)
-            for page in data["results"]
+            for page in pages_raw
         ]
 
-        return pd.concat(pages, axis="columns").T
+        if pages:
+            return pd.concat(pages, axis="columns").T
+        else:
+            return None
+
+    def _get_all_pages(self, database_query_url):
+        next_cursor = None
+        has_more = True
+        segments = []
+        while has_more:
+            print("Get segment")
+            pages, has_more, next_cursor = self._get_results_segment(database_query_url, next_cursor)
+            segments.append(pages)
+
+        return chain.from_iterable(segments)
+
+    def _get_results_segment(self, database_query_url, start_cursor):
+        response = requests.post(
+            database_query_url,
+            headers=self._headers,
+            json=dict(
+                start_cursor=start_cursor
+            ) if start_cursor else {}
+        )
+        data = response.json()
+        pages = data["results"]
+        next_cursor = data["next_cursor"]
+        has_more = data["has_more"]
+
+        return pages, has_more, next_cursor
 
     def _create_page_properties(self, database_id, page_properties: List[PropertyValue]):
         properties = {
@@ -103,4 +132,4 @@ class NotionDatabaseApiManager:
         new_page_data = self._create_page_properties(database_id, page_properties)
 
         data = json.dumps(new_page_data)
-        response = requests.post(self.CREATE_URL, headers=self._headers, data=data)
+        requests.post(self.CREATE_URL, headers=self._headers, data=data)
