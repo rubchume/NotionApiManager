@@ -78,7 +78,10 @@ class NotionDatabaseApiManager:
         if pages:
             return pd.concat(pages, axis="columns").T
         else:
-            return None
+            return pd.DataFrame(
+                [],
+                columns=self._property_types[database_id].keys()
+            )
 
     def _get_all_pages(self, database_query_url):
         next_cursor = None
