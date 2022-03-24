@@ -50,7 +50,7 @@ class NotionDatabaseApiManagerTests(unittest.TestCase):
         )
 
     @requests_mock.Mocker(kw="requests_mocker")
-    def test_get_database_with_no_rows_returns_none(self, requests_mocker):
+    def test_get_database_with_no_rows_returns_empty_dataframe_with_right_columns(self, requests_mocker):
         # Given
         requests_mocker.post(
             "https://api.notion.com/v1/databases/database_id_12345678/query",
@@ -63,7 +63,13 @@ class NotionDatabaseApiManagerTests(unittest.TestCase):
         # When
         response = self.manager.get_database("database_id_12345678")
         # Then
-        self.assertIsNone(response)
+        assert_frame_equal(
+            response,
+            pd.DataFrame(
+                [],
+                columns=["property1", "property2", "property3"]
+            )
+        )
 
     @requests_mock.Mocker(kw="requests_mocker")
     def test_get_database_with_text_field(self, requests_mocker):
