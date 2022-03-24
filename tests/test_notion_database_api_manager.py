@@ -50,6 +50,22 @@ class NotionDatabaseApiManagerTests(unittest.TestCase):
         )
 
     @requests_mock.Mocker(kw="requests_mocker")
+    def test_get_database_with_no_rows_returns_none(self, requests_mocker):
+        # Given
+        requests_mocker.post(
+            "https://api.notion.com/v1/databases/database_id_12345678/query",
+            json={
+                "results": [],
+                "next_cursor": None,
+                "has_more": False
+            }
+        )
+        # When
+        response = self.manager.get_database("database_id_12345678")
+        # Then
+        self.assertIsNone(response)
+
+    @requests_mock.Mocker(kw="requests_mocker")
     def test_get_database_with_text_field(self, requests_mocker):
         # Given
         requests_mocker.post(
@@ -64,7 +80,9 @@ class NotionDatabaseApiManagerTests(unittest.TestCase):
                             }
                         }
                     },
-                ]
+                ],
+                "next_cursor": None,
+                "has_more": False
             }
         )
         # When
@@ -95,7 +113,9 @@ class NotionDatabaseApiManagerTests(unittest.TestCase):
                             }
                         }
                     },
-                ]
+                ],
+                "next_cursor": None,
+                "has_more": False
             }
         )
         # When
@@ -126,7 +146,9 @@ class NotionDatabaseApiManagerTests(unittest.TestCase):
                             }
                         }
                     },
-                ]
+                ],
+                "next_cursor": None,
+                "has_more": False
             }
         )
         # When
@@ -157,7 +179,9 @@ class NotionDatabaseApiManagerTests(unittest.TestCase):
                             }
                         }
                     },
-                ]
+                ],
+                "next_cursor": None,
+                "has_more": False
             }
         )
         # When
@@ -188,7 +212,9 @@ class NotionDatabaseApiManagerTests(unittest.TestCase):
                             }
                         }
                     },
-                ]
+                ],
+                "next_cursor": None,
+                "has_more": False
             }
         )
         # When
