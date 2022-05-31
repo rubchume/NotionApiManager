@@ -44,10 +44,16 @@ class NotionDatabaseApiManager:
         }
 
     def _get_property_definitions(self, database_id):
+        def get_property_type(property_type_str):
+            if PropertyType.has_value(property_type_str):
+                return PropertyType(property_type_str)
+            else:
+                return PropertyType.UNKNOWN
+
         database_url = self.DATABASES_URL + database_id
         properties = requests.get(database_url, headers=self._headers).json()["properties"]
         return [
-            PropertyDefinition(prop_name, PropertyType(prop_object["type"]))
+            PropertyDefinition(prop_name, get_property_type(prop_object["type"]))
             for prop_name, prop_object in properties.items()
         ]
 
@@ -57,7 +63,7 @@ class NotionDatabaseApiManager:
             for property_name, property_data in page["properties"].items()
         }
 
-        return pd.Series(properties)
+        return pd.Series(properties, name=page.get("id", None))
 
     def get_database(self, database_id):
         """

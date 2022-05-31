@@ -72,6 +72,41 @@ class NotionDatabaseApiManagerTests(unittest.TestCase):
         )
 
     @requests_mock.Mocker(kw="requests_mocker")
+    def test_get_database_with_id(self, requests_mocker):
+        # Given
+        requests_mocker.post(
+            "https://api.notion.com/v1/databases/database_id_12345678/query",
+            json={
+                "results": [
+                    {
+                        "id": "abcdefg",
+                        "properties": {
+                            "column1": {
+                                "type": "text",
+                                "text": "This is the title"
+                            }
+                        }
+                    },
+                ],
+                "next_cursor": None,
+                "has_more": False
+            }
+        )
+        # When
+        response = self.manager.get_database("database_id_12345678")
+        # Then
+        assert_frame_equal(
+            response,
+            pd.DataFrame(
+                [
+                    ["This is the title"]
+                ],
+                columns=["column1"],
+                index=["abcdefg"]
+            )
+        )
+
+    @requests_mock.Mocker(kw="requests_mocker")
     def test_get_database_with_text_field(self, requests_mocker):
         # Given
         requests_mocker.post(
