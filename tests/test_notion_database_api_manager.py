@@ -272,6 +272,39 @@ class NotionDatabaseApiManagerTests(unittest.TestCase):
         )
 
     @requests_mock.Mocker(kw="requests_mocker")
+    def test_get_unknown_property_type_returns_the_value_as_it_is(self, requests_mocker):
+        # Given
+        requests_mocker.post(
+            "https://api.notion.com/v1/databases/database_id_12345678/query",
+            json={
+                "results": [
+                    {
+                        "properties": {
+                            "someProperty": {
+                                "type": "unknownwhatever",
+                                "unknownwhatever": {"somefield": "somevalue"}
+                            }
+                        }
+                    },
+                ],
+                "next_cursor": None,
+                "has_more": False
+            }
+        )
+        # When
+        response = self.manager.get_database("database_id_12345678")
+        # Then
+        assert_frame_equal(
+            response,
+            pd.DataFrame(
+                [
+                    [{"somefield": "somevalue"}]
+                ],
+                columns=["someProperty"]
+            )
+        )
+
+    @requests_mock.Mocker(kw="requests_mocker")
     def test_create_page(self, requests_mocker):
         # Given
         requests_mocker.post(
