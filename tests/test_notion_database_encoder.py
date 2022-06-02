@@ -104,3 +104,16 @@ class NotionPropertyEncoderTests(unittest.TestCase):
             },
             result
         )
+
+    def test_encode_relation(self):
+        # Given
+        encoder = NotionPropertyEncoder()
+        # When
+        result = encoder.encode(45, PropertyType.NUMBER)
+        # Then
+        self.assertEqual(
+            {
+                "number": 45
+            },
+            result
+        )

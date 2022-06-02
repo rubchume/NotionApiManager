@@ -1,10 +1,17 @@
-from enum import Enum
+from enum import Enum, unique
 from typing import Any, NamedTuple
 
 import pandas as pd
 
 
-class PropertyType(Enum):
+class EnrichedEnum(Enum):
+    @classmethod
+    def has_value(cls, value):
+        return value in set(item.value for item in cls)
+
+
+@unique
+class PropertyType(EnrichedEnum):
     TEXT = "text"
     RICH_TEXT = "rich_text"
     SELECT = "select"
@@ -12,6 +19,8 @@ class PropertyType(Enum):
     DATE = "date"
     CHECKBOX = "checkbox"
     NUMBER = "number"
+    URL = "url"
+    UNKNOWN = "unknown"
 
 
 class PropertyDefinition(NamedTuple):

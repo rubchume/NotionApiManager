@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "notionapimanager"
-version = "0.1.7"
+version = "0.1.8"
 description = "Python package for consulting, creating and editing Notion databases"
 authors = ["Ruben Chulia Mena <rubchume@gmail.com>"]
 license = "MIT"
@@ -18,7 +18,8 @@ pytest = "^7.0.1"
 nox = "^2022.1.7"
 safety = "^1.10.3"
 flake8 = "^4.0.1"
-flake8-bandit = "^2.1.2"
+flake8-bandit = "2.1.2"
+bandit = "1.7.2"
 flake8-bugbear = "^22.1.11"
 flake8-import-order = "^0.18.1"
 black = "^22.1.0"
