@@ -50,6 +50,33 @@ class NotionDatabaseApiManagerTests(unittest.TestCase):
         )
 
     @requests_mock.Mocker(kw="requests_mocker")
+    def test_connect_and_read_unknown_property_type(self, requests_mocker):
+        # Given
+        manager = NotionDatabaseApiManager("integration_token_1234", ["database_id_12345678"])
+        requests_mocker.get(
+            "https://api.notion.com/v1/databases/database_id_12345678",
+            json={
+                "properties": {
+                    "property1": {"type": "checkbox"},
+                    "property2": {"type": "unknown_type"}
+                }
+            }
+        )
+        expected_property_types = {
+            "database_id_12345678": {
+                "property1": PropertyType.CHECKBOX,
+                "property2": PropertyType.UNKNOWN,
+            }
+        }
+        # When
+        manager.connect()
+        # Then
+        self.assertEqual(
+            manager._property_types,
+            expected_property_types
+        )
+
+    @requests_mock.Mocker(kw="requests_mocker")
     def test_get_database_with_no_rows_returns_empty_dataframe_with_right_columns(self, requests_mocker):
         # Given
         requests_mocker.post(
