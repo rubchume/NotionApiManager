@@ -13,7 +13,8 @@ class NotionDatabaseApiManager:
     """Class for reading from (and writing to) Notion databases"""
 
     DATABASES_URL = 'https://api.notion.com/v1/databases/'
-    CREATE_URL = 'https://api.notion.com/v1/pages'
+    PAGES_URL = 'https://api.notion.com/v1/pages'
+    BLOCKS_URL_TEMPLATE = "https://api.notion.com/v1/blocks/{page_id}/children"
 
     def __init__(self, integration_token, database_ids):
         self.integration_token = integration_token
@@ -141,4 +142,7 @@ class NotionDatabaseApiManager:
         new_page_data = self._create_page_properties(database_id, page_properties)
 
         data = json.dumps(new_page_data)
-        requests.post(self.CREATE_URL, headers=self._headers, data=data)
+        requests.post(self.PAGES_URL, headers=self._headers, data=data)
+
+    def get_page_blocks(self, page_id):
+        return requests.get(self.BLOCKS_URL_TEMPLATE.format(page_id=page_id), headers=self._headers).json()["results"]
