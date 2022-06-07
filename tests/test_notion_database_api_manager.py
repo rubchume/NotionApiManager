@@ -362,3 +362,67 @@ class NotionDatabaseApiManagerTests(unittest.TestCase):
         self.assertEqual("POST", requests_mocker.request_history[0].method)
         self.assertEqual("https://api.notion.com/v1/pages", requests_mocker.request_history[0].url)
         self.assertEqual(expected_json, requests_mocker.request_history[0].json())
+
+    @requests_mock.Mocker(kw="requests_mocker")
+    def test_get_page_blocks(self, requests_mocker):
+        # Given
+        requests_mocker.get(
+            "https://api.notion.com/v1/blocks/page_id/children",
+            json={'object': 'list',
+                  'results': [{'object': 'block',
+                               'id': '2dcba05b-611a-48b4-a27d-705baca48284',
+                               'created_time': '2022-06-06T22:52:00.000Z',
+                               'last_edited_time': '2022-06-06T23:09:00.000Z',
+                               'created_by': {'object': 'user',
+                                              'id': '477cd72a-ba43-4857-aeed-1331957a950d'},
+                               'last_edited_by': {'object': 'user',
+                                                  'id': '477cd72a-ba43-4857-aeed-1331957a950d'},
+                               'has_children': False,
+                               'archived': False,
+                               'type': 'child_database',
+                               'child_database': {'title': 'Ingredientes receta'}},
+                              {'object': 'block',
+                               'id': 'ad3dd600-2a4e-4169-a499-c7196244ac89',
+                               'created_time': '2022-06-04T16:34:00.000Z',
+                               'last_edited_time': '2022-06-04T16:34:00.000Z',
+                               'created_by': {'object': 'user',
+                                              'id': '477cd72a-ba43-4857-aeed-1331957a950d'},
+                               'last_edited_by': {'object': 'user',
+                                                  'id': '477cd72a-ba43-4857-aeed-1331957a950d'},
+                               'has_children': False,
+                               'archived': False,
+                               'type': 'paragraph',
+                               'paragraph': {'color': 'default', 'text': []}}],
+                  'next_cursor': None,
+                  'has_more': False}
+        )
+        # When
+        blocks = self.manager.get_page_blocks("page_id")
+        # Then
+        self.assertEqual(
+            blocks,
+            [{'object': 'block',
+              'id': '2dcba05b-611a-48b4-a27d-705baca48284',
+              'created_time': '2022-06-06T22:52:00.000Z',
+              'last_edited_time': '2022-06-06T23:09:00.000Z',
+              'created_by': {'object': 'user',
+                             'id': '477cd72a-ba43-4857-aeed-1331957a950d'},
+              'last_edited_by': {'object': 'user',
+                                 'id': '477cd72a-ba43-4857-aeed-1331957a950d'},
+              'has_children': False,
+              'archived': False,
+              'type': 'child_database',
+              'child_database': {'title': 'Ingredientes receta'}},
+             {'object': 'block',
+              'id': 'ad3dd600-2a4e-4169-a499-c7196244ac89',
+              'created_time': '2022-06-04T16:34:00.000Z',
+              'last_edited_time': '2022-06-04T16:34:00.000Z',
+              'created_by': {'object': 'user',
+                             'id': '477cd72a-ba43-4857-aeed-1331957a950d'},
+              'last_edited_by': {'object': 'user',
+                                 'id': '477cd72a-ba43-4857-aeed-1331957a950d'},
+              'has_children': False,
+              'archived': False,
+              'type': 'paragraph',
+              'paragraph': {'color': 'default', 'text': []}}]
+        )
