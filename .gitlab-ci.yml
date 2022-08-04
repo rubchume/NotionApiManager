@@ -16,3 +16,6 @@ Deploy:
   script:
     - pip3 install poetry
     - ./publish_package.sh
+  only:
+    refs:
+      - main
