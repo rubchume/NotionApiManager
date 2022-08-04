@@ -65,3 +65,7 @@ Hence, a Notion *database* will be returned as a `Pandas DataFrame <Pandas DataF
            PropertyValue("Property Name", "Property value"),
        ]
    )
+
+   # Get blocks of page
+   page_id = "a0259665-56b4-4567-a773-9cd369kg2d6f945"
+   manager.get_page_blocks(page_id)
