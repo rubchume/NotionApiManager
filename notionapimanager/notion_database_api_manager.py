@@ -145,4 +145,12 @@ class NotionDatabaseApiManager:
         requests.post(self.PAGES_URL, headers=self._headers, data=data)
 
     def get_page_blocks(self, page_id):
+        """
+        Get page blocks
+
+        :param page_id: id of the page
+        :type page_id: str
+        :return: list of blocks of the page
+        :rtype: list
+        """
         return requests.get(self.BLOCKS_URL_TEMPLATE.format(page_id=page_id), headers=self._headers).json()["results"]

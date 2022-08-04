@@ -9,3 +9,13 @@ Test:
     - pip3 install poetry
     - pip3 install nox==2020.5.24
     - nox
+
+Deploy:
+  stage: deploy
+  image: python:3.9
+  script:
+    - pip3 install poetry
+    - ./publish_package.sh
+  only:
+    refs:
+      - main
