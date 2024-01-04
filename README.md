@@ -1,16 +1,30 @@
-# Notion API Manager
+# Introduction
 
 This package implements a wrapper class around the official [Notion API](https://developers.notion.com/).
 
+[Notion](https://www.notion.so/) app has changed forever the way millions of users take notes.
+
+At the moment of writing these lines, even if there are strong competitors like Obsidian or LogSeq that out-compete Notion in the task of creating a *second brain*, Notion still has the edge as the most balanced note-taking app. It might not be the best in anything, but it is excellent in everything, and that balance is what makes it my preferred option when it comes taking notes, manage projects and organizing knowledge.
+
+One of the great things of Notion is that its API is simple and easy to use. However, for most common operations it could be even simpler.
+
+This project is a small Python wrapper around the existing Notion API so creating new pages and consuming existing information becomes a matter of writing a few lines.
+
 It makes it easier to read databases as [Pandas DataFrames](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html) and to create new registries.
 
-GitHub [repository](https://github.com/rubchume/NotionApiManager).
+This package published in **PyPI** ([PyPI](https://pypi.org/project/notionapimanager/)) and documented ([Documentation](https://notionapimanager.readthedocs.io/en/latest/)).
 
-[Documentation](https://notionapimanager.readthedocs.io/en/latest/).
+It has been developed using Continuous Integration and Continuous Development pipeline (CI/CD).
 
-[PyPI](https://pypi.org/project/notionapimanager/).
+# Approach
 
-# Steps
+There has been a strong intention of using the least amount of third party packages. The only one on which I relied is Pandas. The rest is implemented using the built-in packages available in Python 3.
+
+The documentation has been generated automatically with **Sphinx**.
+
+The CI/CD pipeline (the whole process testing and deploying the new versions of the package) is done by running a **Gitlab CI Pipeline**.
+
+# How to use
 
 ## Obtain a Notion integration token
 
