@@ -12,7 +12,7 @@ This project is a small Python wrapper around the existing Notion API so creatin
 
 It makes it easier to read databases as [Pandas DataFrames](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html) and to create new registries.
 
-This package published in **PyPI** ([PyPI](https://pypi.org/project/notionapimanager/)) and documented ([Documentation](https://notionapimanager.readthedocs.io/en/latest/)).
+This package published in **PyPI** ([PyPI](https://pypi.org/project/notionapimanager/)) and documented in ReadTheDocs ([Documentation](https://notionapimanager.readthedocs.io/en/latest/)).
 
 It has been developed using Continuous Integration and Continuous Development pipeline (CI/CD).
 
@@ -20,7 +20,7 @@ It has been developed using Continuous Integration and Continuous Development pi
 
 There has been a strong intention of using the least amount of third party packages. The only one on which I relied is Pandas. The rest is implemented using the built-in packages available in Python 3.
 
-The documentation has been generated automatically with **Sphinx**.
+The documentation has been generated automatically with **Sphinx** and published in ReadTheDocs.
 
 The CI/CD pipeline (the whole process testing and deploying the new versions of the package) is done by running a **Gitlab CI Pipeline**.
 
